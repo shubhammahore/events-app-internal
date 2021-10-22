@@ -5,7 +5,7 @@
 // variables:
 //      https://github.com/shubhammahore/events-app-internal.git
 //      dtc-102021-u326
-//      demo-service
+//      internal
 //      cluster-1
 //      us-central1-c
 //      the following values can be found in the yaml:
@@ -44,12 +44,12 @@ pipeline {
                         }
                     }
             steps {
-                echo "submit gcr.io/dtc-102021-u326/demo-service:v2.${env.BUILD_ID}"
-                sh "gcloud builds submit -t gcr.io/dtc-102021-u326/demo-service:v2.${env.BUILD_ID} ."
+                echo "submit gcr.io/dtc-102021-u326/internal:v2.${env.BUILD_ID}"
+                sh "gcloud builds submit -t gcr.io/dtc-102021-u326/internal:v2.${env.BUILD_ID} ."
                 echo 'Get cluster credentials'
                 sh 'gcloud container clusters get-credentials cluster-1--zone us-central1-c --project dtc-102021-u326'
-                echo "Update the image to use gcr.io/dtc-102021-u326/demo-service:v2.${env.BUILD_ID}"
-                sh "kubectl set image deployment/demo-api demo-api=gcr.io/dtc-102021-u326/demo-service:v2.${env.BUILD_ID} --record"
+                echo "Update the image to use gcr.io/dtc-102021-u326/internal:v2.${env.BUILD_ID}"
+                sh "kubectl set image deployment/demo-api demo-api=gcr.io/dtc-102021-u326/internal:v2.${env.BUILD_ID} --record"
             }
         }            
     }
